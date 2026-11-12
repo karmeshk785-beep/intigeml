@@ -237,6 +237,6 @@ def main(page: ft.Page):
 
 if __name__ == "__main__":
     if "com.termux" in os.environ.get("PREFIX", ""):
-        ft.app(target=main, view=ft.AppView.WEB_BROWSER, port=8550)
+        ft.run(main, view=ft.AppView.WEB_BROWSER, port=8550)
     else:
-        ft.app(target=main)
+        ft.run(main)
