@@ -214,10 +214,10 @@ def main(page: ft.Page):
                             ],
                             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                         ),
-                        padding=ft.padding.only(left=16, right=8, top=8),
+                        padding=ft.Padding.only(left=16, right=8, top=8),
                     ),
                     chat,
-                    ft.Container(content=status, padding=ft.padding.only(left=16)),
+                    ft.Container(content=status, padding=ft.Padding.only(left=16)),
                     ft.Container(
                         content=ft.Row(
                             [box, ft.IconButton(ft.Icons.SEND_ROUNDED, icon_color="#2A6DF4", on_click=lambda e: send())]
