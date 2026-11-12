@@ -128,7 +128,7 @@ def main(page: ft.Page):
                     padding=12,
                     border_radius=16,
                     bgcolor="#2A6DF4" if is_user else "#1C1F26",
-                    constraints=ft.BoxConstraints(max_width=320),
+                    width=300,
                 )
             ],
             alignment=ft.MainAxisAlignment.END if is_user else ft.MainAxisAlignment.START,
@@ -142,11 +142,15 @@ def main(page: ft.Page):
     t_field = ft.TextField(label="GitHub token", password=True, can_reveal_password=True)
     r_field = ft.TextField(label="GitHub repo (user/repo)")
 
+    def close_settings(e=None):
+        dlg.open = False
+        page.update()
+
     def save_settings(e):
         cfg["gemini"] = k_field.value.strip()
         cfg["github"] = t_field.value.strip()
         cfg["repo"] = r_field.value.strip()
-        page.close(dlg)
+        close_settings()
         note("Settings save ho gayi")
 
     dlg = ft.AlertDialog(
@@ -154,9 +158,11 @@ def main(page: ft.Page):
         content=ft.Column([k_field, t_field, r_field], tight=True),
         actions=[ft.TextButton("Save", on_click=save_settings)],
     )
+    page.overlay.append(dlg)
 
     def open_settings(e):
-        page.open(dlg)
+        dlg.open = True
+        page.update()
 
     def route(text):
         low = text.lower()
