@@ -1,0 +1,10 @@
+[project]
+name = "jarvis_chat"
+version = "1.0.0"
+description = "Jarvis chat app"
+requires-python = ">=3.10"
+dependencies = ["flet", "requests"]
+
+[tool.flet]
+org = "com.jarvis"
+product = "Jarvis"
