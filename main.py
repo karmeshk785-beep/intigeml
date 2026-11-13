@@ -9,7 +9,7 @@ import threading
 import flet as ft
 import requests
 
-GEMINI_MODEL = "gemini-2.5-flash"
+GEMINI_MODEL = "gemini-2.0-flash"
 SYSTEM_PROMPT = (
     "You are Jarvis, a coding assistant. When asked to build something, write the COMPLETE "
     "working code in fenced code blocks. Put the file name as a comment on the first line of "
