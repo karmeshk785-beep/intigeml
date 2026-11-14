@@ -9,7 +9,7 @@ import threading
 import flet as ft
 import requests
 
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-flash-latest"
 SYSTEM_PROMPT = (
     "You are Jarvis, a coding assistant. When asked to build something, write the COMPLETE "
     "working code in fenced code blocks. Put the file name as a comment on the first line of "
@@ -89,7 +89,11 @@ def main(page: ft.Page):
     page.bgcolor = "#0F1115"
     page.padding = 0
 
-    cfg = {"gemini": "", "github": "", "repo": ""}
+    cfg = {
+        "gemini": page.client_storage.get("gemini") or "",
+        "github": page.client_storage.get("github") or "",
+        "repo": page.client_storage.get("repo") or "",
+    }
     contents = []
     last = {"files": {}}
 
@@ -138,9 +142,9 @@ def main(page: ft.Page):
         chat.controls.append(bubble(text, is_user, copy))
         page.update()
 
-    k_field = ft.TextField(label="Gemini API key", password=True, can_reveal_password=True)
-    t_field = ft.TextField(label="GitHub token", password=True, can_reveal_password=True)
-    r_field = ft.TextField(label="GitHub repo (user/repo)")
+    k_field = ft.TextField(label="Gemini API key", value=cfg["gemini"], password=True, can_reveal_password=True)
+    t_field = ft.TextField(label="GitHub token", value=cfg["github"], password=True, can_reveal_password=True)
+    r_field = ft.TextField(label="GitHub repo (user/repo)", value=cfg["repo"])
 
     def close_settings(e=None):
         dlg.open = False
@@ -150,6 +154,9 @@ def main(page: ft.Page):
         cfg["gemini"] = k_field.value.strip()
         cfg["github"] = t_field.value.strip()
         cfg["repo"] = r_field.value.strip()
+        page.client_storage.set("gemini", cfg["gemini"])
+        page.client_storage.set("github", cfg["github"])
+        page.client_storage.set("repo", cfg["repo"])
         close_settings()
         note("Settings save ho gayi")
 
