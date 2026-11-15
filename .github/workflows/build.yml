@@ -16,6 +16,7 @@ jobs:
           flutter-version: "3.47.9"
           channel: stable
       - run: pip install flet
+      - run: yes | flutter doctor --android-licenses || true
       - run: flet build apk -v
       - uses: actions/upload-artifact@v4
         with:
